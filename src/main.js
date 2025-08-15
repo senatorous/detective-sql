@@ -3,7 +3,7 @@ import initSqlJs from "sql.js";
 // Инициализация SQLite: указываем, где лежит бинарник
 const SQL = await initSqlJs({
   // файл находится в /public, значит доступен по корню сайта
-  locateFile: (file) => `/${file}`, // даст путь "/sql-wasm.wasm"
+  locateFile: (file) => `${import.meta.env.BASE_URL}${file}`, // даст путь "/sql-wasm.wasm"
 });
 
 // 1) Собираем «мини-базу» уровня: таблицы + тестовые данные
