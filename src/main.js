@@ -58,6 +58,8 @@ runBtn.onclick = () => {
   runBtn.disabled = true;
   statusSpan.textContent = "Выполняю...";
   errorDiv.textContent = "";
+  // очищаем предыдущий результат, чтобы не вводить пользователя в заблуждение при ошибке
+  resultDiv.innerHTML = "";
   try {
     const query = sqlBox.value;
     const res = db.exec(query); // массив result-set'ов
