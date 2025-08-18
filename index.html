@@ -1,49 +1,36 @@
 <!doctype html>
-<html lang="ru">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>SQL Detective — MVP</title>
+    <title>SQL Detective</title>
     <style>
-      body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; margin: 24px; background:#0f1115; color:#eaeaea; }
-      .row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; }
-      textarea { width: 100%; height: 200px; background:#161821; color:#eaeaea; border:1px solid #2a2e3a; border-radius:12px; padding:12px; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;}
-      button { padding:10px 16px; border-radius:10px; border:0; background:#4f46e5; color:white; cursor:pointer; }
-      button:disabled { opacity:.6; cursor:progress; }
-      table { border-collapse: collapse; width: 100%; }
-      th, td { border:1px solid #2a2e3a; padding:8px; }
-      .card { background:#161821; border:1px solid #2a2e3a; border-radius:12px; padding:16px; }
-      .muted { color:#9aa3b2; font-size:14px; }
-      .err { color:#fca5a5; white-space:pre-wrap; }
+      body, html { margin:0; padding:0; height:100%; font-family:sans-serif; }
+      .layout { display:grid; grid-template-columns:1fr 2fr 1fr; height:100vh; }
+      .schema, .chat, .editor-area { padding:8px; overflow:auto; }
+      .schema { border-right:1px solid #ccc; }
+      .chat { border-left:1px solid #ccc; display:flex; flex-direction:column; }
+      .chat .messages { flex:1; overflow:auto; }
+      .chat .outgoing { display:flex; margin-top:8px; }
+      .chat .outgoing input { flex:1; }
+      .editor-area { display:flex; flex-direction:column; }
+      .editor-area textarea { flex:1; }
+      .editor-area button { margin-top:4px; align-self:flex-start; }
+      .result { margin-top:8px; overflow:auto; border-top:1px solid #ccc; padding-top:8px; }
+      table { border-collapse: collapse; }
+      th, td { border:1px solid #ccc; padding:2px 4px; }
+      .error { color: red; white-space: pre-wrap; }
+      .empty { color: #666; }
     </style>
   </head>
   <body>
-    <h1>🕵️ SQL Detective — MVP</h1>
-    <p class="muted">Напиши запрос и нажми <b>Run</b>. База — внутри браузера, это безопасно.</p>
-
-    <div class="row">
-      <div class="card">
-        <h3>Ваш запрос</h3>
-        <textarea id="sql"></textarea>
-        <div style="margin-top:12px;">
-          <button id="run">Run ▶</button>
-          <span id="status" class="muted" style="margin-left:8px;"></span>
-        </div>
-        <div id="error" class="err" style="margin-top:12px;"></div>
+    <div class="layout">
+      <div id="schema" class="schema"></div>
+      <div class="editor-area">
+        <div id="editor"></div>
+        <div id="result" class="result"></div>
       </div>
-
-      <div class="card">
-        <h3>Результат</h3>
-        <div id="result">—</div>
-      </div>
+      <div id="chat" class="chat"></div>
     </div>
-
-    <div class="card" style="margin-top:16px;">
-      <h3>Схема дела #1</h3>
-      <pre id="schema" class="muted"></pre>
-    </div>
-
-    <!-- важно: подключаем модульный JS из src/ -->
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>
