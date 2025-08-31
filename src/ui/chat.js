@@ -19,7 +19,12 @@ export function renderChat(container, state) {
 
 export function setOutgoingMessage(text) {
   const input = document.querySelector(".chat .outgoing input");
-  if (input) input.value = text;
+  const btn = document.querySelector(".chat .outgoing button");
+  if (!input || !btn) return;
+  input.value = text;
+  const enabled = Boolean(text);
+  input.disabled = !enabled;
+  btn.disabled = !enabled;
 }
 
 export function onSend(fn) {

@@ -1,10 +1,10 @@
 import { initDb, executeQuery, getDb } from './db.js';
 import { getState, addMessage, setOpenTables } from './state.js';
-import { renderChat } from './ui/chat.js';
+import { renderChat, setOutgoingMessage, onSend } from './ui/chat.js';
 import { renderEditor } from './ui/editor.js';
 import { renderResult } from './ui/result.js';
 import { renderSchema } from './ui/schema.js';
-import { validate } from './engine/validator.js';
+import { validate, steps } from './engine/validator.js';
 import setupSQL from './setup.sql?raw';
 
 await initDb(setupSQL);
@@ -19,7 +19,32 @@ addMessage('Детектив Смит', 'Мой уже забрали, ты од
 addMessage('Детектив Смит', 'У тебя есть доступ к таблице дел за сегодня. Есть что-то жесткое? Просто селектни все');
 
 const chatEl = document.getElementById('chat');
+const schemaEl = document.getElementById('schema');
 renderChat(chatEl, state);
+
+const allTables = [];
+const visibleTables = ['Cases'];
+
+onSend((text) => {
+  addMessage('Вы', text);
+  renderChat(chatEl, state);
+  setOutgoingMessage('');
+  const stepInfo = steps[state.currentStep];
+  // открыть новые таблицы
+  if (stepInfo.addTables.length) {
+    visibleTables.push(...stepInfo.addTables);
+    setOpenTables(allTables.filter((t) => visibleTables.includes(t.name)));
+    renderSchema(schemaEl, state.openTables);
+  }
+  // показать последующие сообщения
+  stepInfo.messages.forEach((m) => {
+    setTimeout(() => {
+      addMessage(m.from, m.text);
+      renderChat(chatEl, state);
+    }, m.delay);
+  });
+  state.currentStep += 1;
+});
 
 const editorEl = document.getElementById('editor');
 const resultEl = document.getElementById('result');
@@ -29,8 +54,11 @@ renderEditor(editorEl, {
     const res = executeQuery(query);
     if (res.ok) {
       renderResult(resultEl, { columns: res.columns, rows: res.rows });
-      const check = validate(state.currentStep, res);
-      // TODO: использовать check.matched для перехода по сюжету
+        const check = validate(state.currentStep, res);
+        if (check.matched) {
+          const stepInfo = steps[state.currentStep];
+          setOutgoingMessage(stepInfo.outgoing);
+        }
     } else {
       renderResult(resultEl, { error: res.error });
     }
@@ -42,18 +70,16 @@ editorEl.querySelector('textarea').value = 'SELECT * FROM Cases;';
 
 renderResult(resultEl, {});
 
-// показать схему БД
+// показать схему БД (изначально только Cases)
 const db = getDb();
 const tableList = db.exec('PRAGMA table_list;');
-const tables = [];
 if (tableList.length) {
   tableList[0].values.forEach((row) => {
     const name = row[1];
     const info = db.exec(`PRAGMA table_info(${name});`);
     const columns = info[0].values.map((c) => c[1]);
-    tables.push({ name, columns });
+    allTables.push({ name, columns });
   });
 }
-setOpenTables(tables);
-const schemaEl = document.getElementById('schema');
+setOpenTables(allTables.filter((t) => visibleTables.includes(t.name)));
 renderSchema(schemaEl, state.openTables);
