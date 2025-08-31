@@ -5,14 +5,7 @@ import { renderEditor } from './ui/editor.js';
 import { renderResult } from './ui/result.js';
 import { renderSchema } from './ui/schema.js';
 import { validate } from './engine/validator.js';
-
-const setupSQL = `
-CREATE TABLE cases(id INTEGER PRIMARY KEY, title TEXT, severity INT);
-INSERT INTO cases VALUES
- (1,'Стрельба в центре',5),
- (2,'Кража велосипеда',2),
- (3,'Грабёж банкомата',4);
-`;
+import setupSQL from './setup.sql?raw';
 
 await initDb(setupSQL);
 
@@ -45,7 +38,7 @@ renderEditor(editorEl, {
 });
 
 // подсказка первого запроса
-editorEl.querySelector('textarea').value = 'SELECT * FROM cases;';
+editorEl.querySelector('textarea').value = 'SELECT * FROM Cases;';
 
 renderResult(resultEl, {});
 
