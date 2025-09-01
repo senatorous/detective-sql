@@ -21,7 +21,8 @@ export function executeQuery(query) {
       return { ok: true, columns: [], rows: [] };
     }
     const { columns, values } = res[0];
-    return { ok: true, columns, rows: values };
+    // Ограничиваем вывод результата максимум 5 строками без изменения исходного запроса
+    return { ok: true, columns, rows: values.slice(0, 5) };
   } catch (e) {
     return { ok: false, error: String(e) };
   }
