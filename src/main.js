@@ -43,17 +43,23 @@ onSend((text) => {
   renderChat(chatEl, state);
   setOutgoingMessage('');
   const stepInfo = steps[state.currentStep];
-  // открыть новые таблицы
-  if (stepInfo.addTables.length) {
-    visibleTables.push(...stepInfo.addTables);
-    setOpenTables(allTables.filter((t) => visibleTables.includes(t.name)));
-    renderSchema(schemaEl, state.openTables);
-  }
+  const lastSmithIdx = stepInfo.messages
+    .map((m) => m.from)
+    .lastIndexOf('Детектив Смит');
   // показать последующие сообщения
   stepInfo.messages.forEach((m, i) => {
     setTimeout(() => {
       addMessage(m.from, m.text);
       renderChat(chatEl, state);
+      if (i === lastSmithIdx && stepInfo.addTables.length) {
+        visibleTables.push(...stepInfo.addTables);
+        setOpenTables(
+          visibleTables
+            .map((name) => allTables.find((t) => t.name === name))
+            .filter(Boolean)
+        );
+        renderSchema(schemaEl, state.openTables);
+      }
     }, (i + 1) * 5000);
   });
   state.currentStep += 1;
@@ -94,5 +100,9 @@ if (tableList.length) {
     allTables.push({ name, columns });
   });
 }
-setOpenTables(allTables.filter((t) => visibleTables.includes(t.name)));
+setOpenTables(
+  visibleTables
+    .map((name) => allTables.find((t) => t.name === name))
+    .filter(Boolean)
+);
 renderSchema(schemaEl, state.openTables);
