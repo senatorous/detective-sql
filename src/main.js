@@ -12,6 +12,11 @@ await initDb(setupSQL);
 const state = getState();
 const chatEl = document.getElementById('chat');
 const schemaEl = document.getElementById('schema');
+const startButton = document.getElementById('start-button');
+const startText = document.getElementById('start-text');
+if (startButton && startText) {
+  startText.style.width = `${startButton.offsetWidth * 3}px`;
+}
 renderChat(chatEl, state);
 
 function startFirstCycle() {
