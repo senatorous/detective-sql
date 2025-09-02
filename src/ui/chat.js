@@ -30,6 +30,10 @@ export function renderChat(container, state) {
   const btn = container.querySelector("button");
   const input = container.querySelector("input");
   btn.addEventListener("click", () => sendHandler(input.value));
+  const messages = container.querySelector('.messages');
+  if (messages) {
+    messages.scrollTop = messages.scrollHeight;
+  }
 }
 
 export function setOutgoingMessage(text) {

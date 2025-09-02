@@ -54,7 +54,7 @@ onSend((text) => {
     setTimeout(() => {
       addMessage(m.from, m.text);
       renderChat(chatEl, state);
-    }, i * 5000);
+    }, (i + 1) * 5000);
   });
   state.currentStep += 1;
 });
