@@ -25,17 +25,53 @@
         display: flex;
         flex-direction: column;
         background: #f7f7f7;
-        border: 1px solid #444;
-        border-radius: 6px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        border: 1px solid #b5b5b5;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
         overflow: hidden;
       }
 
       .title-bar {
-        background: #e0e0e0;
-        padding: 8px;
-        font-weight: bold;
-        border-bottom: 1px solid #bbb;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 28px;
+        background: #ebebeb;
+        border-bottom: 1px solid #b5b5b5;
+        font-size: 12px;
+        color: #4a4a4a;
+        user-select: none;
+      }
+
+      .title-bar .window-buttons {
+        position: absolute;
+        left: 8px;
+        display: flex;
+        gap: 8px;
+      }
+
+      .title-bar .window-buttons span {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        display: inline-block;
+      }
+
+      .title-bar .window-buttons .close {
+        background: #ff5f57;
+      }
+
+      .title-bar .window-buttons .minimize {
+        background: #ffbd2e;
+      }
+
+      .title-bar .window-buttons .maximize {
+        background: #28c940;
+      }
+
+      .title-bar .title {
+        pointer-events: none;
       }
 
       /* Schema window */
@@ -267,16 +303,37 @@
     </div>
     <div class="desktop">
       <div class="window schema-window">
-        <div class="title-bar">Schema Master</div>
+        <div class="title-bar">
+          <div class="window-buttons">
+            <span class="close"></span>
+            <span class="minimize"></span>
+            <span class="maximize"></span>
+          </div>
+          <span class="title">Schema Master</span>
+        </div>
         <div id="schema" class="schema-content"></div>
       </div>
       <div class="window editor-window">
-        <div class="title-bar">SQL Editor</div>
+        <div class="title-bar">
+          <div class="window-buttons">
+            <span class="close"></span>
+            <span class="minimize"></span>
+            <span class="maximize"></span>
+          </div>
+          <span class="title">SQL Editor</span>
+        </div>
         <div id="editor" class="editor"></div>
         <div id="result" class="result"></div>
       </div>
       <div class="window chat-window">
-        <div class="title-bar">Messenger</div>
+        <div class="title-bar">
+          <div class="window-buttons">
+            <span class="close"></span>
+            <span class="minimize"></span>
+            <span class="maximize"></span>
+          </div>
+          <span class="title">Messenger</span>
+        </div>
         <div id="chat" class="chat"></div>
       </div>
     </div>
