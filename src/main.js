@@ -26,7 +26,7 @@ function startFirstCycle() {
     setTimeout(() => {
       addMessage(m.from, m.text);
       renderChat(chatEl, state);
-    }, i * 3000);
+    }, i * 5000);
   });
 }
 
@@ -50,11 +50,11 @@ onSend((text) => {
     renderSchema(schemaEl, state.openTables);
   }
   // показать последующие сообщения
-  stepInfo.messages.forEach((m) => {
+  stepInfo.messages.forEach((m, i) => {
     setTimeout(() => {
       addMessage(m.from, m.text);
       renderChat(chatEl, state);
-    }, m.delay);
+    }, i * 5000);
   });
   state.currentStep += 1;
 });

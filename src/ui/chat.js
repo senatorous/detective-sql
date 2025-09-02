@@ -6,7 +6,15 @@ export function renderChat(container, state) {
       ${state.messages
         .map(
           (m) => `
-        <div class="msg ${m.from === 'Вы' ? 'out' : 'in'}">
+        <div class="msg ${m.from === 'Вы' ? 'out' : 'in'} ${
+          m.from === 'Шеф'
+            ? 'chef'
+            : m.from === 'Детектив Смит'
+            ? 'smith'
+            : m.from === 'Неизвестный'
+            ? 'unknown'
+            : ''
+        }">
           ${m.from === 'Вы' ? '' : `<div class="sender">${m.from}</div>`}
           <div class="bubble">${m.text}</div>
         </div>
