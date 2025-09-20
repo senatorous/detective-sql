@@ -132,18 +132,9 @@
       }
 
       /* ====== MONITOR FRAME ====== */
-      .monitor {
+      .monitor-bezel {
         max-width: 1280px;
         margin: 24px auto 56px;
-        padding: 24px;
-        border-radius: 32px;
-        background: radial-gradient(140% 100% at 50% 0%, #212531 0%, #131722 100%);
-        box-shadow:
-          0 40px 80px rgba(0,0,0,.55),
-          inset 0 1px 0 rgba(255,255,255,.06);
-      }
-
-      .monitor-bezel {
         border-radius: 28px;
         background: linear-gradient(180deg, #2a2f3b 0%, #1f2531 100%);
         border: 1px solid #313745;
@@ -174,7 +165,7 @@
       /* сам экран */
       .screen {
         position: relative;
-        border-radius: 22px;
+        border-radius: 22px 22px 0 0;
         background: #1e1e1e;
         box-shadow: inset 0 0 0 1px rgba(255,255,255,.04);
         overflow: hidden;
@@ -201,29 +192,6 @@
         line-height: 1.2;
       }
 
-      /* подставка монитора */
-      .monitor-stand {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 10px;
-        margin-top: 18px;
-      }
-      .stand-neck {
-        width: 120px; height: 10px; border-radius: 6px;
-        background: linear-gradient(180deg, #3b4150 0%, #2b3140 100%);
-        box-shadow: inset 0 1px 0 rgba(255,255,255,.1);
-      }
-      .stand-base {
-        width: 56%;
-        height: 12px;
-        border-radius: 12px/8px;
-        background: linear-gradient(180deg, #3b4150 0%, #2b3140 100%);
-        box-shadow:
-          0 10px 18px rgba(0,0,0,.5),
-          inset 0 1px 0 rgba(255,255,255,.1);
-      }
-
       /* переопределения, когда UI вставлен в «экран» */
       .screen .desktop { height: 64vh; min-height: 480px; background: transparent; }
       @media (max-width: 1200px) {
@@ -233,71 +201,64 @@
   </head>
   <body>
     <!-- ====== MONITOR WRAPPER ====== -->
-    <div class="monitor">
-      <div class="monitor-bezel">
-        <div class="monitor-topbar">
-          <span class="monitor-camera"></span>
+    <div class="monitor-bezel">
+      <div class="monitor-topbar">
+        <span class="monitor-camera"></span>
+      </div>
+
+      <!-- экран монитора -->
+      <div class="screen">
+        <!-- стартовый экран теперь размещается внутри экрана -->
+        <div id="start-screen" class="start-screen">
+          <p id="start-text">
+            Вы детектив полиции и часто работаете из дома. Однажды поздно ночью, когда вы уже собирались закрыть ноутбук и пойти спать, вам начинают приходить тревожные сообщения
+          </p>
+          <button id="start-button">Начать</button>
         </div>
 
-        <!-- экран монитора -->
-        <div class="screen">
-          <!-- стартовый экран теперь размещается внутри экрана -->
-          <div id="start-screen" class="start-screen">
-            <p id="start-text">
-              Вы детектив полиции и часто работаете из дома. Однажды поздно ночью, когда вы уже собирались закрыть ноутбук и пойти спать, вам начинают приходить тревожные сообщения
-            </p>
-            <button id="start-button">Начать</button>
+        <!-- твой прежний UI -->
+        <div class="desktop">
+          <div class="window schema-window">
+            <div class="title-bar">
+              <div class="window-buttons">
+                <span class="close"></span>
+                <span class="minimize"></span>
+                <span class="maximize"></span>
+              </div>
+              <span class="title">Schema Master</span>
+            </div>
+            <div id="schema" class="schema-content"></div>
           </div>
 
-          <!-- твой прежний UI -->
-          <div class="desktop">
-            <div class="window schema-window">
-              <div class="title-bar">
-                <div class="window-buttons">
-                  <span class="close"></span>
-                  <span class="minimize"></span>
-                  <span class="maximize"></span>
-                </div>
-                <span class="title">Schema Master</span>
+          <div class="window editor-window">
+            <div class="title-bar">
+              <div class="window-buttons">
+                <span class="close"></span>
+                <span class="minimize"></span>
+                <span class="maximize"></span>
               </div>
-              <div id="schema" class="schema-content"></div>
+              <span class="title">SQL Editor</span>
             </div>
-
-            <div class="window editor-window">
-              <div class="title-bar">
-                <div class="window-buttons">
-                  <span class="close"></span>
-                  <span class="minimize"></span>
-                  <span class="maximize"></span>
-                </div>
-                <span class="title">SQL Editor</span>
-              </div>
-              <div id="editor" class="editor"></div>
-              <div id="result" class="result"></div>
-            </div>
-
-            <div class="window chat-window">
-              <div class="title-bar">
-                <div class="window-buttons">
-                  <span class="close"></span>
-                  <span class="minimize"></span>
-                  <span class="maximize"></span>
-                </div>
-                <span class="title">Messenger</span>
-              </div>
-              <div id="chat" class="chat"></div>
-            </div>
+            <div id="editor" class="editor"></div>
+            <div id="result" class="result"></div>
           </div>
-        </div>
 
-        <div class="monitor-chin">
-          <div class="monitor-badge">SQL Detective</div>
+          <div class="window chat-window">
+            <div class="title-bar">
+              <div class="window-buttons">
+                <span class="close"></span>
+                <span class="minimize"></span>
+                <span class="maximize"></span>
+              </div>
+              <span class="title">Messenger</span>
+            </div>
+            <div id="chat" class="chat"></div>
+          </div>
         </div>
       </div>
 
-      <div class="monitor-stand">
-        <div class="stand-neck"></div>
-        <div class="stand-base"></div>
+      <div class="monitor-chin">
+        <div class="monitor-badge">SQL Detective</div>
       </div>
     </div>
 
