@@ -169,7 +169,7 @@
         background: #1e1e1e;
         box-shadow: inset 0 0 0 1px rgba(255,255,255,.04);
         overflow: hidden;
-        min-height: 520px;
+        min-height: 500px;
       }
 
       /* «борода» (нижняя светлая панель) */
@@ -179,7 +179,8 @@
         border-left: 1px solid #cfd2d9;
         border-right: 1px solid #cfd2d9;
         border-bottom: 1px solid #c2c5cc;
-        border-radius: 0 0 24px 24px;
+        border-radius: 0 0 28px 28px;
+        margin: 0 -18px; /* растягиваем «бороду» на ширину рамки */
         padding: 22px 24px 26px;
         box-shadow: inset 0 1px 0 rgba(255,255,255,.6);
         text-align: center;
@@ -193,9 +194,9 @@
       }
 
       /* переопределения, когда UI вставлен в «экран» */
-      .screen .desktop { height: 64vh; min-height: 480px; background: transparent; }
+      .screen .desktop { height: 62vh; min-height: 460px; background: transparent; }
       @media (max-width: 1200px) {
-        .screen .desktop { height: 70vh; }
+        .screen .desktop { height: 68vh; }
       }
     </style>
   </head>
