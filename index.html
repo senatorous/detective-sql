@@ -4,12 +4,132 @@
     <meta charset="UTF-8" />
     <title>SQL Detective</title>
     <style>
-      body, html {
+      html,
+      body {
+        height: 100%;
+      }
+
+      body {
         margin: 0;
         padding: 0;
+        background: #0d1118;
+        font-family: 'Inter', sans-serif;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .frame {
+        position: relative;
+        width: 1280px;
+        height: 832px;
+        background: #ffffff;
+        border-radius: 40px;
+        box-shadow: 0 40px 80px rgba(0, 0, 0, 0.45);
+        overflow: hidden;
+      }
+
+      .frame-inner {
+        position: absolute;
+        top: 0;
+        left: 7px;
+        width: 1273px;
+        height: 832px;
+        background: #1a1e27;
+        border-radius: 36px;
+        overflow: hidden;
+      }
+
+      .screen-backdrop {
+        position: absolute;
+        top: 47px;
+        left: 53px;
+        width: 1174px;
+        height: 603px;
+        background: #4a4e59;
+        border-radius: 34px 34px 32px 32px;
+        z-index: 1;
+      }
+
+      .screen-strip {
+        position: absolute;
+        top: 62px;
+        left: 80px;
+        width: 1119px;
+        height: 14px;
+        background: #636876;
+        border-radius: 20px;
+        z-index: 2;
+      }
+
+      .camera-outer {
+        position: absolute;
+        top: 61px;
+        left: 632px;
+        width: 16px;
+        height: 16px;
+        background: #6f747a;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 3;
+      }
+
+      .camera-inner {
+        width: 8px;
+        height: 8px;
+        background: #353536;
+        border-radius: 50%;
+      }
+
+      .screen-bezel {
+        position: absolute;
+        top: 88px;
+        left: 69px;
+        width: 1140px;
+        height: 537px;
+        background: #1a1a1a;
+        border-radius: 30px;
+        padding: 24px;
+        box-sizing: border-box;
+        display: flex;
+        overflow: hidden;
+        z-index: 3;
+      }
+
+      .screen-bezel .desktop {
+        width: 100%;
         height: 100%;
-        font-family: sans-serif;
-        background: #1e1e1e;
+      }
+
+      .frame-footer {
+        position: absolute;
+        top: 650px;
+        left: 53px;
+        width: 1174px;
+        height: 98px;
+        background: #e9e9ed;
+        border: 1px solid #a19c9c;
+        border-radius: 24px 24px 36px 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 18px;
+        z-index: 2;
+      }
+
+      .frame-logo {
+        width: 69px;
+        height: 69px;
+        object-fit: contain;
+      }
+
+      .frame-footer-text {
+        font-weight: 400;
+        font-size: 15px;
+        line-height: 18px;
+        color: #000000;
       }
 
       .desktop {
@@ -17,8 +137,10 @@
         grid-template-columns: 1fr 2fr 1fr;
         gap: 20px;
         padding: 20px;
-        height: 100vh;
+        height: 100%;
         box-sizing: border-box;
+        flex: 1;
+        min-height: 0;
       }
 
       .window {
@@ -301,40 +423,55 @@
       <p id="start-text">Вы детектив полиции и часто работаете из дома. Однажды поздно ночью, когда вы уже собирались закрыть ноутбук и пойти спать, вам начинают приходить тревожные сообщения</p>
       <button id="start-button">Начать</button>
     </div>
-    <div class="desktop">
-      <div class="window schema-window">
-        <div class="title-bar">
-          <div class="window-buttons">
-            <span class="close"></span>
-            <span class="minimize"></span>
-            <span class="maximize"></span>
-          </div>
-          <span class="title">Schema Master</span>
+    <div class="frame">
+      <div class="frame-inner">
+        <div class="screen-backdrop"></div>
+        <div class="screen-strip"></div>
+        <div class="camera-outer">
+          <div class="camera-inner"></div>
         </div>
-        <div id="schema" class="schema-content"></div>
-      </div>
-      <div class="window editor-window">
-        <div class="title-bar">
-          <div class="window-buttons">
-            <span class="close"></span>
-            <span class="minimize"></span>
-            <span class="maximize"></span>
+        <div class="screen-bezel">
+          <div class="desktop">
+            <div class="window schema-window">
+              <div class="title-bar">
+                <div class="window-buttons">
+                  <span class="close"></span>
+                  <span class="minimize"></span>
+                  <span class="maximize"></span>
+                </div>
+                <span class="title">Schema Master</span>
+              </div>
+              <div id="schema" class="schema-content"></div>
+            </div>
+            <div class="window editor-window">
+              <div class="title-bar">
+                <div class="window-buttons">
+                  <span class="close"></span>
+                  <span class="minimize"></span>
+                  <span class="maximize"></span>
+                </div>
+                <span class="title">SQL Editor</span>
+              </div>
+              <div id="editor" class="editor"></div>
+              <div id="result" class="result"></div>
+            </div>
+            <div class="window chat-window">
+              <div class="title-bar">
+                <div class="window-buttons">
+                  <span class="close"></span>
+                  <span class="minimize"></span>
+                  <span class="maximize"></span>
+                </div>
+                <span class="title">Messenger</span>
+              </div>
+              <div id="chat" class="chat"></div>
+            </div>
           </div>
-          <span class="title">SQL Editor</span>
         </div>
-        <div id="editor" class="editor"></div>
-        <div id="result" class="result"></div>
-      </div>
-      <div class="window chat-window">
-        <div class="title-bar">
-          <div class="window-buttons">
-            <span class="close"></span>
-            <span class="minimize"></span>
-            <span class="maximize"></span>
-          </div>
-          <span class="title">Messenger</span>
+        <div class="frame-footer">
+          <img src="/assets/lapd-logo.png" alt="Los Angeles Police Department logo" class="frame-logo" />
+          <span class="frame-footer-text">Los Angeles Police Department</span>
         </div>
-        <div id="chat" class="chat"></div>
       </div>
     </div>
   </body>
