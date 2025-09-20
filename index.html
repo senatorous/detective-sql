@@ -15,23 +15,27 @@
       body {
         min-height: 100vh;
         display: flex;
-        align-items: center;
         justify-content: center;
+        align-items: flex-start;
+        padding: 24px 0 0;
+        box-sizing: border-box;
         background: linear-gradient(180deg, #808998 0%, #5c6473 100%);
       }
 
       .scene {
-        width: min(1200px, 94vw);
+        width: min(1100px, calc(100vw - 32px));
+        height: calc(100vh - 24px);
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 16px;
-        padding: 40px 24px 120px;
+        gap: 12px;
+        padding: 0 16px;
         box-sizing: border-box;
       }
 
       .monitor {
         width: 100%;
+        flex: 1;
         border-radius: 32px;
         background: linear-gradient(180deg, #dee2ea 0%, #c5cad5 100%);
         box-shadow: 0 30px 60px rgba(13, 17, 26, 0.45);
@@ -41,12 +45,12 @@
       }
 
       .monitor-top {
-        height: 72px;
+        height: 64px;
         position: relative;
         display: flex;
         align-items: flex-end;
         justify-content: center;
-        padding-bottom: 18px;
+        padding-bottom: 16px;
         box-shadow: inset 0 -1px 0 rgba(126, 134, 150, 0.45);
       }
 
@@ -80,7 +84,9 @@
       }
 
       .monitor-screen {
-        padding: 40px 64px;
+        flex: 1;
+        display: flex;
+        padding: clamp(24px, 3.5vh, 36px) clamp(28px, 5vw, 56px);
         background: linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0) 100%);
       }
 
@@ -88,14 +94,15 @@
         position: relative;
         background: #0f1118;
         border-radius: 26px;
-        padding: 24px;
-        height: clamp(420px, 68vh, 680px);
+        flex: 1;
+        padding: clamp(16px, 3vh, 24px);
+        min-height: 0;
         box-sizing: border-box;
         display: flex;
       }
 
       .monitor-bottom {
-        padding: 32px 64px 48px;
+        padding: clamp(20px, 3vh, 28px) clamp(32px, 5vw, 64px) clamp(24px, 4vh, 36px);
         background: linear-gradient(180deg, rgba(233, 236, 244, 0.85) 0%, rgba(199, 205, 216, 0.95) 100%);
         display: flex;
         justify-content: center;
@@ -154,23 +161,6 @@
         box-shadow: 0 24px 45px rgba(13, 17, 26, 0.4);
         position: relative;
         margin-top: -8px;
-      }
-
-      .monitor-foot::before {
-        content: "";
-        position: absolute;
-        inset: 12px 18%;
-        border-radius: 50%;
-        background: linear-gradient(180deg, rgba(255, 255, 255, 0.85) 0%, rgba(206, 211, 220, 0.82) 100%);
-      }
-
-      .monitor-foot::after {
-        content: "";
-        position: absolute;
-        inset: 22px 28%;
-        border-radius: 50%;
-        background: rgba(164, 170, 181, 0.55);
-        filter: blur(4px);
       }
 
       .desktop {
@@ -464,44 +454,46 @@
 
       @media (max-width: 1100px) {
         .monitor-screen {
-          padding: 32px;
+          padding: clamp(20px, 4vh, 28px) clamp(24px, 7vw, 44px);
         }
 
         .monitor-bottom {
-          padding: 28px 32px 40px;
+          padding: clamp(18px, 3vh, 24px) clamp(28px, 8vw, 44px) clamp(22px, 4vh, 30px);
         }
 
         .screen-inner {
-          padding: 20px;
+          padding: clamp(14px, 3vh, 20px);
         }
       }
 
       @media (max-width: 900px) {
+        body {
+          padding: 16px 0;
+        }
+
         .scene {
-          padding: 30px 16px 100px;
+          width: calc(100vw - 24px);
+          height: auto;
+          min-height: calc(100vh - 32px);
+          padding: 0 12px 12px;
+          gap: 16px;
         }
 
         .monitor {
           border-radius: 26px;
-        }
-
-        .monitor-top {
-          height: 64px;
-          padding-bottom: 16px;
+          flex: none;
         }
 
         .monitor-screen {
-          padding: 24px;
+          padding: 20px;
         }
 
         .monitor-bottom {
-          padding: 24px;
+          padding: 20px 24px 28px;
         }
 
         .screen-inner {
-          padding: 16px;
-          height: auto;
-          min-height: 420px;
+          padding: 14px;
         }
 
         .desktop {
@@ -530,17 +522,26 @@
       }
 
       @media (max-width: 600px) {
+        body {
+          padding: 12px 0;
+        }
+
+        .scene {
+          min-height: calc(100vh - 24px);
+          gap: 14px;
+          padding: 0 10px 10px;
+        }
+
         .monitor-screen {
-          padding: 20px 16px;
+          padding: 16px;
         }
 
         .monitor-bottom {
-          padding: 20px 16px 32px;
+          padding: 16px 18px 24px;
         }
 
         .screen-inner {
           padding: 12px;
-          min-height: 360px;
         }
 
         .desktop {
