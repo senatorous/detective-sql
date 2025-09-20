@@ -136,7 +136,7 @@
       /* ====== MONITOR FRAME ====== */
       .monitor-bezel {
         max-width: 1280px;
-        margin: 24px auto 56px;
+        margin: 24px auto;
         border-radius: 28px;
         background: linear-gradient(180deg, #2a2f3b 0%, #1f2531 100%);
         border: 1px solid #313745;
@@ -171,8 +171,8 @@
         background: #1e1e1e;
         box-shadow: inset 0 0 0 1px rgba(255,255,255,.04);
         overflow: hidden;
-        min-height: 500px;
-        height: 62vh;
+        /* подбираем высоту так, чтобы экран и рамка в сумме не требовали вертикального скролла */
+        height: clamp(420px, 62vh, calc(100vh - 160px));
         display: flex;
         flex-direction: column;
       }
@@ -206,7 +206,7 @@
         background: transparent;
       }
       @media (max-width: 1200px) {
-        .screen { height: 68vh; }
+        .screen { height: clamp(420px, 68vh, calc(100vh - 160px)); }
       }
     </style>
   </head>
