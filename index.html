@@ -4,12 +4,118 @@
     <meta charset="UTF-8" />
     <title>SQL Detective</title>
     <style>
-      body, html {
+      body,
+      html {
         margin: 0;
         padding: 0;
         height: 100%;
         font-family: sans-serif;
-        background: #1e1e1e;
+        background: linear-gradient(180deg, #d9dce2 0%, #c7cad0 100%);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .workspace {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 40px 0;
+        box-sizing: border-box;
+      }
+
+      .monitor {
+        width: min(1200px, 90vw);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 28px;
+      }
+
+      .monitor-bezel {
+        width: 100%;
+        background: linear-gradient(180deg, #3a3d45 0%, #1e2025 100%);
+        border-radius: 32px;
+        padding: 32px 48px 44px;
+        box-shadow: 0 45px 70px rgba(0, 0, 0, 0.35);
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        position: relative;
+      }
+
+      .monitor-camera {
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.35), rgba(0, 0, 0, 0.9));
+        border: 2px solid #555963;
+        margin: 0 auto 20px;
+        box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.2), 0 2px 6px rgba(0, 0, 0, 0.45);
+      }
+
+      .monitor-screen {
+        background: radial-gradient(circle at top, rgba(255, 255, 255, 0.12), transparent 60%), #101219;
+        border-radius: 24px;
+        padding: 24px;
+        box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.05), inset 0 14px 30px rgba(0, 0, 0, 0.6);
+        display: flex;
+        width: 100%;
+        min-height: clamp(420px, 58vh, 660px);
+      }
+
+      .monitor-sensor {
+        width: 64px;
+        height: 6px;
+        border-radius: 4px;
+        background: linear-gradient(180deg, #5a5d64 0%, #2a2d33 100%);
+        margin: 20px auto 0;
+        box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.25), inset 0 -1px 2px rgba(0, 0, 0, 0.5);
+      }
+
+      .monitor-stand {
+        width: min(380px, 55%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 24px;
+      }
+
+      .monitor-stand-neck {
+        width: 22%;
+        min-width: 80px;
+        height: 96px;
+        border-radius: 18px 18px 32px 32px;
+        background: linear-gradient(180deg, #484c54 0%, #26282d 100%);
+        box-shadow: 0 20px 35px rgba(0, 0, 0, 0.35);
+      }
+
+      .monitor-base {
+        width: 100%;
+        padding: 18px 0;
+        border-radius: 90px;
+        background: linear-gradient(180deg, #3f434b 0%, #1f2126 100%);
+        box-shadow: 0 35px 45px rgba(0, 0, 0, 0.4);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+      }
+
+      .monitor-base::before {
+        content: '';
+        position: absolute;
+        inset: 8px 14px;
+        border-radius: 80px;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        pointer-events: none;
+      }
+
+      .lapd-logo {
+        width: clamp(60px, 9vw, 92px);
+        height: auto;
+        filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.45));
       }
 
       .desktop {
@@ -17,7 +123,7 @@
         grid-template-columns: 1fr 2fr 1fr;
         gap: 20px;
         padding: 20px;
-        height: 100vh;
+        height: 100%;
         box-sizing: border-box;
       }
 
@@ -301,40 +407,56 @@
       <p id="start-text">Вы детектив полиции и часто работаете из дома. Однажды поздно ночью, когда вы уже собирались закрыть ноутбук и пойти спать, вам начинают приходить тревожные сообщения</p>
       <button id="start-button">Начать</button>
     </div>
-    <div class="desktop">
-      <div class="window schema-window">
-        <div class="title-bar">
-          <div class="window-buttons">
-            <span class="close"></span>
-            <span class="minimize"></span>
-            <span class="maximize"></span>
+    <div class="workspace">
+      <div class="monitor">
+        <div class="monitor-bezel">
+          <div class="monitor-camera"></div>
+          <div class="monitor-screen">
+            <div class="desktop">
+              <div class="window schema-window">
+                <div class="title-bar">
+                  <div class="window-buttons">
+                    <span class="close"></span>
+                    <span class="minimize"></span>
+                    <span class="maximize"></span>
+                  </div>
+                  <span class="title">Schema Master</span>
+                </div>
+                <div id="schema" class="schema-content"></div>
+              </div>
+              <div class="window editor-window">
+                <div class="title-bar">
+                  <div class="window-buttons">
+                    <span class="close"></span>
+                    <span class="minimize"></span>
+                    <span class="maximize"></span>
+                  </div>
+                  <span class="title">SQL Editor</span>
+                </div>
+                <div id="editor" class="editor"></div>
+                <div id="result" class="result"></div>
+              </div>
+              <div class="window chat-window">
+                <div class="title-bar">
+                  <div class="window-buttons">
+                    <span class="close"></span>
+                    <span class="minimize"></span>
+                    <span class="maximize"></span>
+                  </div>
+                  <span class="title">Messenger</span>
+                </div>
+                <div id="chat" class="chat"></div>
+              </div>
+            </div>
           </div>
-          <span class="title">Schema Master</span>
+          <div class="monitor-sensor"></div>
         </div>
-        <div id="schema" class="schema-content"></div>
-      </div>
-      <div class="window editor-window">
-        <div class="title-bar">
-          <div class="window-buttons">
-            <span class="close"></span>
-            <span class="minimize"></span>
-            <span class="maximize"></span>
+        <div class="monitor-stand">
+          <div class="monitor-stand-neck"></div>
+          <div class="monitor-base">
+            <img src="/assets/lapd-logo.png" alt="Los Angeles Police Department" class="lapd-logo" />
           </div>
-          <span class="title">SQL Editor</span>
         </div>
-        <div id="editor" class="editor"></div>
-        <div id="result" class="result"></div>
-      </div>
-      <div class="window chat-window">
-        <div class="title-bar">
-          <div class="window-buttons">
-            <span class="close"></span>
-            <span class="minimize"></span>
-            <span class="maximize"></span>
-          </div>
-          <span class="title">Messenger</span>
-        </div>
-        <div id="chat" class="chat"></div>
       </div>
     </div>
   </body>
