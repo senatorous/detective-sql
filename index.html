@@ -188,14 +188,21 @@
         margin: 0 -18px; /* растягиваем «бороду» на ширину рамки */
         padding: 22px 24px 26px;
         box-shadow: inset 0 1px 0 rgba(255,255,255,.6);
-        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
 
       .monitor-badge {
-        font-size: 14px;
-        color: #2b2f38;
-        opacity: .9;
-        line-height: 1.2;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .monitor-logo {
+        max-height: 48px;
+        width: auto;
+        display: block;
       }
 
       /* переопределения, когда UI вставлен в «экран» */
@@ -270,7 +277,9 @@
       </div>
 
       <div class="monitor-chin">
-        <div class="monitor-badge">SQL Detective</div>
+        <div class="monitor-badge">
+          <img src="/uploads/lapd-logo.png" alt="LAPD logo" class="monitor-logo" />
+        </div>
       </div>
     </div>
 
