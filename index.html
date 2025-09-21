@@ -4,13 +4,17 @@
     <meta charset="UTF-8" />
     <title>SQL Detective</title>
     <style>
+      :root {
+        --start-screen-font-size: 1rem;
+      }
+
       /* ====== base (твои стили) ====== */
       body, html {
         margin: 0;
         padding: 0;
         height: 100%;
         font-family: sans-serif;
-        background: #0f1320; /* чуть темнее фон, чтобы монитор выделялся */
+        background: #000; /* чуть темнее фон, чтобы монитор выделялся */
       }
 
       .desktop {
@@ -133,6 +137,10 @@
         background: #333; color: #fff; border: none; border-radius: 8px; padding: 20px 40px; font-size: 24px; cursor: pointer;
       }
 
+      #start-text {
+        font-size: var(--start-screen-font-size);
+      }
+
       /* ====== MONITOR FRAME ====== */
       .monitor-bezel {
         max-width: 1280px;
@@ -197,12 +205,21 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
+        gap: 12px;
       }
 
       .monitor-logo {
-        max-height: 48px;
+        max-height: 60px;
         width: auto;
         display: block;
+      }
+
+      .monitor-badge-text {
+        font-size: var(--start-screen-font-size);
+        color: #3e3d3d;
+        line-height: 1.2;
+        text-align: left;
+        white-space: nowrap;
       }
 
       /* переопределения, когда UI вставлен в «экран» */
@@ -279,6 +296,10 @@
       <div class="monitor-chin">
         <div class="monitor-badge">
           <img src="/detective-sql/uploads/lapd-logo.png" alt="LAPD logo" class="monitor-logo" />
+          <div class="monitor-badge-text">
+            Los Angeles<br />
+            Police Department
+          </div>
         </div>
       </div>
     </div>
