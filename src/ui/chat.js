@@ -14,7 +14,7 @@ export function renderChat(container, state) {
             : m.from === 'Неизвестный'
             ? 'unknown'
             : ''
-        }">
+        } ${m.rendered ? '' : 'new'}">
           ${m.from === 'Вы' ? '' : `<div class="sender">${m.from}</div>`}
           <div class="bubble">${m.text}</div>
         </div>
@@ -27,6 +27,11 @@ export function renderChat(container, state) {
       <button disabled>&uarr;</button>
     </div>
   `;
+  state.messages.forEach((message) => {
+    if (!message.rendered) {
+      message.rendered = true;
+    }
+  });
   const btn = container.querySelector("button");
   const input = container.querySelector("input");
   btn.addEventListener("click", () => sendHandler(input.value));

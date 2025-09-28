@@ -5,7 +5,7 @@ const state = {
 };
 
 export function addMessage(from, text) {
-  state.messages.push({ from, text });
+  state.messages.push({ from, text, rendered: false });
 }
 
 export function setOpenTables(tables) {
