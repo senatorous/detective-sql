@@ -17,7 +17,9 @@ const startText = document.getElementById('start-text');
 const sirenOverlay = document.getElementById('siren-overlay');
 const endScreen = document.getElementById('end-screen');
 const policeSirenAudio =
-  typeof Audio !== 'undefined' ? new Audio('/audio/police_sirene_10_sec.mp3') : null;
+  typeof Audio !== 'undefined'
+    ? new Audio(`${import.meta.env.BASE_URL}audio/police_sirene_10_sec.mp3`)
+    : null;
 if (policeSirenAudio) {
   policeSirenAudio.preload = 'auto';
 }
