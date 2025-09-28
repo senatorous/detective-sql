@@ -73,60 +73,95 @@
 
       /* Schema window */
       .schema-content { padding: 8px; overflow: auto; flex: 1; }
-      .schema-content details { margin-bottom: 8px; }
-      .schema-content summary {
-        cursor: pointer;
-        list-style: none;
+      .schema-content .table { margin-bottom: 12px; }
+      .schema-content .table:last-child { margin-bottom: 0; }
+      .schema-content .table-toggle {
+        width: 100%;
         display: flex;
         align-items: center;
         justify-content: space-between;
         gap: 12px;
-        background: linear-gradient(135deg, #2563eb, #1d4ed8);
+        background: #0b93f6;
         color: #f5f5f5;
-        border: 1px solid #1d4ed8;
+        border: none;
         border-radius: 12px;
-        padding: 10px 16px;
+        padding: 12px 18px;
         font-weight: 600;
         letter-spacing: 0.01em;
-        box-shadow: 0 10px 24px -12px rgba(37, 99, 235, 0.65);
-        transition: background 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+        cursor: pointer;
+        box-shadow: 0 10px 24px -12px rgba(11, 147, 246, 0.55);
+        transition: box-shadow 160ms ease, transform 160ms ease;
       }
-      .schema-content summary::after {
-        content: "\25BC";
+      .schema-content .table-toggle:hover {
+        box-shadow: 0 12px 28px -12px rgba(11, 147, 246, 0.65);
+        transform: translateY(-1px);
+      }
+      .schema-content .table-toggle:focus-visible {
+        outline: 2px solid rgba(11, 147, 246, 0.45);
+        outline-offset: 2px;
+      }
+      .schema-content .table--open .table-toggle {
+        box-shadow: 0 12px 28px -12px rgba(11, 147, 246, 0.7);
+        transform: translateY(-1px);
+      }
+      .schema-content .table-name { flex: 1; text-align: left; }
+      .schema-content .table-chevron {
+        width: 22px;
+        height: 22px;
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        width: 22px;
-        height: 22px;
         font-size: 12px;
         border-radius: 999px;
-        background: rgba(255, 255, 255, 0.12);
-        color: #f5f5f5;
-        transition: transform 160ms ease, background 160ms ease;
+        background: rgba(255, 255, 255, 0.14);
+        position: relative;
+        transition: transform 180ms ease, background 180ms ease;
       }
-      .schema-content summary::-webkit-details-marker { display: none; }
-      .schema-content summary:focus-visible {
-        outline: 2px solid rgba(37, 99, 235, 0.45);
-        outline-offset: 2px;
+      .schema-content .table-chevron::before {
+        content: "\25BC";
+        display: block;
+        transform-origin: center;
       }
-      .schema-content details[open] summary {
-        background: linear-gradient(135deg, #1d4ed8, #1e3a8a);
-        box-shadow: 0 12px 28px -14px rgba(30, 64, 175, 0.7);
-        transform: translateY(-1px);
+      .schema-content .table-toggle:hover .table-chevron {
+        background: rgba(255, 255, 255, 0.22);
       }
-      .schema-content details[open] summary::after {
+      .schema-content .table--open .table-chevron {
+        background: rgba(255, 255, 255, 0.22);
+      }
+      .schema-content .table--open .table-chevron::before {
         transform: rotate(-180deg);
-        background: rgba(255, 255, 255, 0.2);
       }
-      .schema-content summary:hover {
-        box-shadow: 0 12px 28px -12px rgba(37, 99, 235, 0.75);
+      .schema-content .table-columns {
+        margin: 8px 0 0;
+        padding: 0;
+        border-radius: 10px;
+        background: transparent;
+        overflow: hidden;
+        transition: height 220ms ease, opacity 200ms ease;
+      }
+      .schema-content .table-columns ul {
+        margin: 0;
+        padding: 12px 16px 14px;
+        background: #f5f5f5;
+        color: #1f2933;
+        border-radius: 10px;
       }
       .schema-content ul {
-        margin: 8px 0 0;
-        padding: 10px 14px;
-        background: #f5f5f5;
-        border-radius: 10px;
-        color: #1f2933;
+        list-style: disc;
+        padding-left: 18px;
+      }
+      @keyframes schemaTableFadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .schema-content .table--new {
+        animation: schemaTableFadeUp 0.35s ease-out both;
       }
 
       /* Editor window */
