@@ -110,6 +110,19 @@
       .chat .msg.out { align-items: flex-end; }
       .chat .msg .sender { font-size: 12px; color: #555; margin-bottom: 2px; }
       .chat .msg .bubble { max-width: 80%; padding: 6px 10px; border-radius: 16px; }
+      @keyframes chatMessageFadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .chat .msg.new {
+        animation: chatMessageFadeUp 0.35s ease-out both;
+      }
       .chat .msg.in .bubble { background: #e5e5ea; color: #000; }
       .chat .msg.smith .bubble { background: #34c759; color: #fff; }
       .chat .msg.unknown .bubble { background: rgb(251, 193, 196); color: #000; }
@@ -233,7 +246,7 @@
         .screen { height: 68vh; }
       }
     </style>
-    <script type="module" crossorigin src="/detective-sql/assets/index-BuguvfYI.js"></script>
+    <script type="module" crossorigin src="/detective-sql/assets/index-C5O1dkQD.js"></script>
   </head>
   <body>
     <!-- ====== MONITOR WRAPPER ====== -->
