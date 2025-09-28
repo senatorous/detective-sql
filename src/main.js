@@ -14,10 +14,29 @@ const chatEl = document.getElementById('chat');
 const schemaEl = document.getElementById('schema');
 const startButton = document.getElementById('start-button');
 const startText = document.getElementById('start-text');
+const sirenOverlay = document.getElementById('siren-overlay');
+const endScreen = document.getElementById('end-screen');
+let finalSequenceStarted = false;
 if (startButton && startText) {
   startText.style.width = `${startButton.offsetWidth * 3}px`;
 }
 renderChat(chatEl, state);
+
+function startFinalSequence() {
+  if (finalSequenceStarted) return;
+  finalSequenceStarted = true;
+  if (sirenOverlay) {
+    sirenOverlay.classList.add('active');
+  }
+  setTimeout(() => {
+    if (sirenOverlay) {
+      sirenOverlay.classList.remove('active');
+    }
+    if (endScreen) {
+      endScreen.classList.remove('hidden');
+    }
+  }, 10000);
+}
 
 function startFirstCycle() {
   const messages = [
@@ -56,6 +75,9 @@ onSend((text) => {
     setTimeout(() => {
       addMessage(m.from, m.text);
       renderChat(chatEl, state);
+      if (!finalSequenceStarted && m.from === 'Неизвестный' && m.text.includes('Доигрался?')) {
+        startFinalSequence();
+      }
       if (i === lastSmithIdx && stepInfo.addTables.length) {
         visibleTables.push(...stepInfo.addTables);
         setOpenTables(
@@ -78,11 +100,11 @@ renderEditor(editorEl, {
     const res = executeQuery(query);
     if (res.ok) {
       renderResult(resultEl, { columns: res.columns, rows: res.rows });
-        const check = validate(state.currentStep, res);
-        if (check.matched) {
-          const stepInfo = steps[state.currentStep];
-          setOutgoingMessage(stepInfo.outgoing);
-        }
+      const check = validate(state.currentStep, res);
+      if (check.matched) {
+        const stepInfo = steps[state.currentStep];
+        setOutgoingMessage(stepInfo.outgoing);
+      }
     } else {
       renderResult(resultEl, { error: res.error });
     }
