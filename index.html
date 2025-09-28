@@ -272,6 +272,56 @@
         font-size: var(--start-screen-font-size);
       }
 
+      .siren-overlay {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.35s ease;
+        z-index: 20;
+        background: rgba(0, 0, 0, 0);
+      }
+
+      .siren-overlay.active {
+        opacity: 1;
+        animation: policeSiren 1.6s linear infinite;
+      }
+
+      @keyframes policeSiren {
+        0%,
+        32% {
+          background: radial-gradient(circle at 15% 25%, rgba(62, 121, 255, 0.55) 0%, rgba(62, 121, 255, 0.05) 45%, rgba(0, 0, 0, 0) 70%),
+            radial-gradient(circle at 85% 80%, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0) 70%);
+        }
+        36%,
+        48% {
+          background: rgba(0, 0, 0, 0.15);
+        }
+        52%,
+        84% {
+          background: radial-gradient(circle at 85% 25%, rgba(255, 66, 79, 0.55) 0%, rgba(255, 66, 79, 0.05) 45%, rgba(0, 0, 0, 0) 70%),
+            radial-gradient(circle at 15% 75%, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0) 70%);
+        }
+        88%,
+        100% {
+          background: rgba(0, 0, 0, 0.12);
+        }
+      }
+
+      .game-over-screen {
+        z-index: 30;
+        background: rgba(0, 0, 0, 0.9);
+        gap: 16px;
+      }
+
+      .game-over-screen p {
+        margin: 0;
+        font-size: calc(var(--start-screen-font-size) * 2.4);
+        font-weight: 700;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+      }
+
       /* ====== MONITOR FRAME ====== */
       .monitor-bezel {
         max-width: 1280px;
@@ -420,6 +470,10 @@
             </div>
             <div id="chat" class="chat"></div>
           </div>
+        </div>
+        <div id="siren-overlay" class="siren-overlay"></div>
+        <div id="end-screen" class="start-screen hidden game-over-screen">
+          <p>Игра закончена</p>
         </div>
       </div>
 
