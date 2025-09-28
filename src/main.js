@@ -16,6 +16,11 @@ const startButton = document.getElementById('start-button');
 const startText = document.getElementById('start-text');
 const sirenOverlay = document.getElementById('siren-overlay');
 const endScreen = document.getElementById('end-screen');
+const policeSirenAudio =
+  typeof Audio !== 'undefined' ? new Audio('/audio/police_sirene_10_sec.mp3') : null;
+if (policeSirenAudio) {
+  policeSirenAudio.preload = 'auto';
+}
 let finalSequenceStarted = false;
 if (startButton && startText) {
   startText.style.width = `${startButton.offsetWidth * 3}px`;
@@ -28,9 +33,22 @@ function startFinalSequence() {
   if (sirenOverlay) {
     sirenOverlay.classList.add('active');
   }
+  if (policeSirenAudio) {
+    policeSirenAudio.currentTime = 0;
+    const playPromise = policeSirenAudio.play();
+    if (playPromise && typeof playPromise.catch === 'function') {
+      playPromise.catch((error) => {
+        console.warn('Не удалось воспроизвести аудио сирены полиции', error);
+      });
+    }
+  }
   setTimeout(() => {
     if (sirenOverlay) {
       sirenOverlay.classList.remove('active');
+    }
+    if (policeSirenAudio) {
+      policeSirenAudio.pause();
+      policeSirenAudio.currentTime = 0;
     }
     if (endScreen) {
       endScreen.classList.remove('hidden');
