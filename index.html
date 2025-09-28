@@ -186,8 +186,7 @@
       }
       .sql-result-table {
         width: 100%;
-        border-collapse: separate;
-        border-spacing: 0 12px;
+        border-collapse: collapse;
         color: #111827;
       }
       .sql-result-thead th {
@@ -207,26 +206,16 @@
       }
       .sql-result-body tr {
         background: #ffffff;
-        box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
-        transition: box-shadow 0.2s ease, transform 0.2s ease;
+        border-bottom: 1px solid #d1d5db;
       }
-      .sql-result-body tr:hover {
-        box-shadow: 0 12px 24px rgba(15, 23, 42, 0.12);
-        transform: translateY(-2px);
+      .sql-result-body tr:first-child {
+        border-top: 1px solid #d1d5db;
       }
       .sql-result-body td {
         padding: 16px;
         text-align: left;
         border: none;
-        font-size: 0.95rem;
-      }
-      .sql-result-body tr td:first-child {
-        border-bottom-left-radius: 12px;
-        border-top-left-radius: 12px;
-      }
-      .sql-result-body tr td:last-child {
-        border-bottom-right-radius: 12px;
-        border-top-right-radius: 12px;
+        font-size: 0.85rem;
       }
       .error { color: red; white-space: pre-wrap; }
       .empty { color: #666; }
