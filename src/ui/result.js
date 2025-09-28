@@ -7,9 +7,16 @@ export function renderResult(container, { columns = [], rows = [], error } = {})
     container.innerHTML = `<div class="empty">Нет данных</div>`;
     return;
   }
-  const thead = `<thead><tr>${columns.map((c) => `<th>${c}</th>`).join("")}</tr></thead>`;
-  const tbody = `<tbody>${rows
-    .map((r) => `<tr>${r.map((v) => `<td>${v}</td>`).join("")}</tr>`)
+  const thead = `<thead class="sql-result-thead"><tr>${columns
+    .map((c) => `<th scope="col">${c}</th>`)
+    .join("")}</tr></thead>`;
+  const tbody = `<tbody class="sql-result-body">${rows
+    .map(
+      (r) =>
+        `<tr class="sql-result-row">${r
+          .map((v) => `<td>${v}</td>`)
+          .join("")}</tr>`
+    )
     .join("")}</tbody>`;
-  container.innerHTML = `<table>${thead}${tbody}</table>`;
+  container.innerHTML = `<table class="sql-result-table">${thead}${tbody}</table>`;
 }
