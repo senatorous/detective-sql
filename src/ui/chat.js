@@ -1,6 +1,6 @@
 let sendHandler = () => {};
 
-const INCOMING_MESSAGE_SOUND_SRC = "/audio/ding_1,5_sec.mp3";
+const INCOMING_MESSAGE_SOUND_SRC = `${import.meta.env.BASE_URL}audio/ding_1,5_sec.mp3`;
 
 function playIncomingMessageSound() {
   try {
