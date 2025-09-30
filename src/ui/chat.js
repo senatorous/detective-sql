@@ -1,5 +1,16 @@
 let sendHandler = () => {};
 
+const INCOMING_MESSAGE_SOUND_SRC = "/audio/ding_1,5_sec.mp3";
+
+function playIncomingMessageSound() {
+  try {
+    const audio = new Audio(INCOMING_MESSAGE_SOUND_SRC);
+    audio.play().catch(() => {});
+  } catch (err) {
+    // Игнорируем ошибки воспроизведения, чтобы не мешать интерфейсу.
+  }
+}
+
 export function renderChat(container, state) {
   container.innerHTML = `
     <div class="messages">
@@ -29,6 +40,9 @@ export function renderChat(container, state) {
   `;
   state.messages.forEach((message) => {
     if (!message.rendered) {
+      if (message.from !== "Вы") {
+        playIncomingMessageSound();
+      }
       message.rendered = true;
     }
   });
