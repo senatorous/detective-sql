@@ -259,7 +259,7 @@
         /* раньше было fixed — из-за рамки делаем его локальным к экрану */
         position: absolute;
         inset: 0;
-        background: rgba(0, 0, 0, 0.85);
+        background: rgba(0, 0, 0, 0.95);
         display: flex; flex-direction: column; justify-content: center; align-items: center;
         text-align: center; color: #fff; gap: 20px; padding: 20px; z-index: 10;
       }
@@ -278,13 +278,13 @@
       }
 
       .start-intro-logo {
-        width: 160px;
+        width: 120px;
         height: auto;
         flex-shrink: 0;
       }
 
       .start-intro-text {
-        font-size: var(--start-screen-font-size);
+        font-size: calc(var(--start-screen-font-size) - 3px);
         line-height: 1.5;
       }
 
@@ -321,7 +321,7 @@
         }
 
         .start-intro-logo {
-          width: 140px;
+          width: 105px;
         }
       }
 
