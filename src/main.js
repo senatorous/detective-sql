@@ -10,6 +10,7 @@ import setupSQL from './setup.sql?raw';
 await initDb(setupSQL);
 
 const state = getState();
+const INCOMING_MESSAGE_DELAY_MS = 7000;
 const chatEl = document.getElementById('chat');
 const schemaEl = document.getElementById('schema');
 const startButton = document.getElementById('start-button');
@@ -70,7 +71,7 @@ function startFirstCycle() {
     setTimeout(() => {
       addMessage(m.from, m.text);
       renderChat(chatEl, state);
-    }, i * 5000);
+    }, i * INCOMING_MESSAGE_DELAY_MS);
   });
 }
 
@@ -107,7 +108,7 @@ onSend((text) => {
         );
         renderSchema(schemaEl, state.openTables);
       }
-    }, (i + 1) * 5000);
+    }, (i + 1) * INCOMING_MESSAGE_DELAY_MS);
   });
   state.currentStep += 1;
 });
