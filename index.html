@@ -268,8 +268,61 @@
         background: #333; color: #fff; border: none; border-radius: 8px; padding: 20px 40px; font-size: 24px; cursor: pointer;
       }
 
+      .start-intro {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+        max-width: min(760px, 90%);
+        text-align: left;
+      }
+
+      .start-intro-logo {
+        width: 160px;
+        height: auto;
+        flex-shrink: 0;
+      }
+
+      .start-intro-text {
+        font-size: var(--start-screen-font-size);
+        line-height: 1.5;
+      }
+
+      .start-intro-text a {
+        color: #fff;
+        font-weight: 700;
+        text-decoration: underline;
+        text-decoration-thickness: 2px;
+      }
+
+      .start-story {
+        background: #f1f0f0;
+        border: 1px solid #dfdfdf;
+        border-radius: 16px;
+        padding: 20px 24px;
+        max-width: min(760px, 90%);
+        color: #2f2f2f;
+      }
+
       #start-text {
         font-size: var(--start-screen-font-size);
+        margin: 0;
+        line-height: 1.6;
+      }
+
+      @media (max-width: 640px) {
+        .start-intro {
+          flex-direction: column;
+          text-align: center;
+        }
+
+        .start-intro-text {
+          text-align: center;
+        }
+
+        .start-intro-logo {
+          width: 140px;
+        }
       }
 
       .siren-overlay {
@@ -426,9 +479,18 @@
       <div class="screen">
         <!-- стартовый экран теперь размещается внутри экрана -->
         <div id="start-screen" class="start-screen">
-          <p id="start-text">
-            Вы детектив полиции и часто работаете из дома. Однажды поздно ночью, когда вы уже собирались закрыть ноутбук и пойти спать, вам начинают приходить тревожные сообщения
-          </p>
+          <div class="start-intro">
+            <img src="uploads/senatorov_head_logo.png" alt="Senatorov Head" class="start-intro-logo" />
+            <p class="start-intro-text">
+              Привет! Меня зовут Саша Сенаторов, я работаю аналитиком в Т-Банке, и эту детективную мини-игру я навайбкодил в свободное время. Скоро я планирую выложить материалы по тому, как эта мини-игра создавалась. Чтобы не пропустить это, приглашаю тебя к себе в телеграм канальчик
+              <a href="https://t.me/+0NDkVcMaagRkNTY6" target="_blank" rel="noreferrer">Сенаторов.head()</a>, там много интересного в целом про карьеру в IT и аналитику. Хорошего прохождения!
+            </p>
+          </div>
+          <div class="start-story">
+            <p id="start-text">
+              Вы детектив полиции и часто работаете из дома. Однажды поздно ночью, когда вы уже собирались закрыть ноутбук и пойти спать, вам начинают приходить тревожные сообщения
+            </p>
+          </div>
           <button id="start-button">Начать</button>
         </div>
 
