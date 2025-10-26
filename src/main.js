@@ -30,6 +30,8 @@ if (startButton && startText) {
 }
 renderChat(chatEl, state);
 
+let editorControls;
+
 function startFinalSequence() {
   if (finalSequenceStarted) return;
   finalSequenceStarted = true;
@@ -71,6 +73,9 @@ function startFirstCycle() {
     setTimeout(() => {
       addMessage(m.from, m.text);
       renderChat(chatEl, state);
+      if (i === messages.length - 1) {
+        editorControls?.setDisabled(false);
+      }
     }, i * INCOMING_MESSAGE_DELAY_MS);
   });
 }
@@ -116,7 +121,8 @@ onSend((text) => {
 const editorEl = document.getElementById('editor');
 const resultEl = document.getElementById('result');
 
-renderEditor(editorEl, {
+editorControls = renderEditor(editorEl, {
+  disabled: true,
   onRun: (query) => {
     const res = executeQuery(query);
     if (res.ok) {
