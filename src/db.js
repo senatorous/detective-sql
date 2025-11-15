@@ -15,6 +15,18 @@ export function getDb() {
 }
 
 export function executeQuery(query) {
+  const statements = query
+    .split(";")
+    .map((part) => part.trim())
+    .filter(Boolean);
+
+  if (
+    statements.length === 0 ||
+    statements.some((stmt) => !/^(select|with)\b/i.test(stmt))
+  ) {
+    return { ok: false, error: "You have no permission" };
+  }
+
   try {
     const res = db.exec(query);
     if (res.length === 0) {
