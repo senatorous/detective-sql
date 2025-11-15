@@ -7,16 +7,16 @@ import { renderSchema } from './ui/schema.js';
 import { validate, steps } from './engine/validator.js';
 import setupSQL from './setup.sql?raw';
 
-if (typeof window !== 'undefined' && import.meta.env.PROD) {
-  const analyticsModuleName = '@vercel/analytics';
-  import(/* @vite-ignore */ analyticsModuleName)
+if (import.meta.env.PROD) {
+  const analyticsModule = '@vercel/analytics';
+  import(/* @vite-ignore */ analyticsModule)
     .then(({ inject }) => {
       if (typeof inject === 'function') {
         inject();
       }
     })
     .catch((error) => {
-      console.warn('Не удалось инициализировать Vercel Analytics', error);
+      console.warn('Не удалось подключить Vercel Analytics', error);
     });
 }
 
