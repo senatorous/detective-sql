@@ -551,5 +551,14 @@
     </div>
 
     <script type="module" src="/src/main.js"></script>
+    <script>
+      if (!window.__VERCEL_INSIGHTS_LOADED) {
+        window.__VERCEL_INSIGHTS_LOADED = true;
+        const script = document.createElement('script');
+        script.defer = true;
+        script.src = '/_vercel/insights/script.js';
+        document.body.appendChild(script);
+      }
+    </script>
   </body>
 </html>
