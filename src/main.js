@@ -30,6 +30,11 @@ const startButton = document.getElementById('start-button');
 const startText = document.getElementById('start-text');
 const sirenOverlay = document.getElementById('siren-overlay');
 const endScreen = document.getElementById('end-screen');
+const rateButton = document.getElementById('rate-button');
+const ratingPanel = document.getElementById('rating-panel');
+const ratingStars = Array.from(document.querySelectorAll('.rating-star'));
+const feedbackContainer = document.getElementById('feedback-container');
+const feedbackInput = document.getElementById('feedback-input');
 const policeSirenAudio =
   typeof Audio !== 'undefined'
     ? new Audio(`${import.meta.env.BASE_URL}audio/police_sirene_10_sec.mp3`)
@@ -41,6 +46,7 @@ let finalSequenceStarted = false;
 if (startButton && startText) {
   startText.style.width = `${startButton.offsetWidth * 3}px`;
 }
+let currentRating = 0;
 renderChat(chatEl, state);
 
 let editorControls;
@@ -72,6 +78,60 @@ function startFinalSequence() {
       endScreen.classList.remove('hidden');
     }
   }, 10000);
+}
+
+function showRatingPanel() {
+  if (!ratingPanel) return;
+  ratingPanel.classList.remove('is-hidden');
+  ratingPanel.setAttribute('aria-hidden', 'false');
+  requestAnimationFrame(() => {
+    ratingPanel.classList.add('rating-panel--active');
+  });
+}
+
+function updateRatingStars(value) {
+  ratingStars.forEach((star) => {
+    const starValue = Number(star.dataset.value);
+    const isActive = starValue <= value;
+    star.classList.toggle('active', isActive);
+    star.setAttribute('aria-checked', String(isActive));
+  });
+}
+
+function showFeedbackArea() {
+  if (!feedbackContainer) return;
+  if (feedbackContainer.classList.contains('is-hidden')) {
+    feedbackContainer.classList.remove('is-hidden');
+    feedbackContainer.classList.remove('rating-feedback--visible');
+    void feedbackContainer.offsetWidth;
+    feedbackContainer.classList.add('rating-feedback--visible');
+  }
+}
+
+if (rateButton) {
+  rateButton.addEventListener('click', () => {
+    rateButton.classList.add('is-hidden');
+    showRatingPanel();
+  });
+}
+
+ratingStars.forEach((star) => {
+  star.addEventListener('click', () => {
+    currentRating = Number(star.dataset.value);
+    updateRatingStars(currentRating);
+    showFeedbackArea();
+  });
+});
+
+if (feedbackInput) {
+  feedbackInput.addEventListener('input', () => {
+    if (!feedbackContainer) return;
+    if (feedbackInput.value.length > 500) {
+      feedbackContainer.classList.add('has-error');
+    } else {
+      feedbackContainer.classList.remove('has-error');
+    }
+  });
 }
 
 function startFirstCycle() {
