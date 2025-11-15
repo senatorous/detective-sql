@@ -435,12 +435,14 @@
       .rating-star svg {
         width: 36px;
         height: 36px;
+        display: block;
       }
 
       .rating-star path {
-        fill: #f7f7f7;
-        stroke: #b1b1b1;
-        stroke-width: 1.5;
+        fill: #d6d6d6;
+        stroke: #a0a0a0;
+        stroke-width: 1.2;
+        transition: fill 0.2s ease, stroke 0.2s ease;
       }
 
       .rating-star.active path {
@@ -695,38 +697,38 @@
             aria-hidden="true"
           >
             <div class="rating-stars" role="radiogroup" aria-label="Оцените игру">
-              <button class="rating-star" type="button" data-value="1" aria-label="1 звезда">
-                <svg viewBox="0 0 24 24" aria-hidden="true">
+              <button class="rating-star" type="button" data-value="1" aria-label="1 звезда" role="radio" aria-checked="false">
+                <svg viewBox="0 0 24 24" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
                   <path
-                    d="M12 2.5l2.89 6.28 6.9.57-5.22 4.53 1.59 6.72L12 16.7l-6.16 3.9 1.59-6.72L2.2 9.35l6.9-.57z"
+                    d="M12 2.5L14.89 8.78 21.79 9.35 16.57 13.88 18.16 20.6 12 16.7 5.84 20.6 7.43 13.88 2.21 9.35 9.11 8.78 12 2.5Z"
                   />
                 </svg>
               </button>
-              <button class="rating-star" type="button" data-value="2" aria-label="2 звезды">
-                <svg viewBox="0 0 24 24" aria-hidden="true">
+              <button class="rating-star" type="button" data-value="2" aria-label="2 звезды" role="radio" aria-checked="false">
+                <svg viewBox="0 0 24 24" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
                   <path
-                    d="M12 2.5l2.89 6.28 6.9.57-5.22 4.53 1.59 6.72L12 16.7l-6.16 3.9 1.59-6.72L2.2 9.35l6.9-.57z"
+                    d="M12 2.5L14.89 8.78 21.79 9.35 16.57 13.88 18.16 20.6 12 16.7 5.84 20.6 7.43 13.88 2.21 9.35 9.11 8.78 12 2.5Z"
                   />
                 </svg>
               </button>
-              <button class="rating-star" type="button" data-value="3" aria-label="3 звезды">
-                <svg viewBox="0 0 24 24" aria-hidden="true">
+              <button class="rating-star" type="button" data-value="3" aria-label="3 звезды" role="radio" aria-checked="false">
+                <svg viewBox="0 0 24 24" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
                   <path
-                    d="M12 2.5l2.89 6.28 6.9.57-5.22 4.53 1.59 6.72L12 16.7l-6.16 3.9 1.59-6.72L2.2 9.35l6.9-.57z"
+                    d="M12 2.5L14.89 8.78 21.79 9.35 16.57 13.88 18.16 20.6 12 16.7 5.84 20.6 7.43 13.88 2.21 9.35 9.11 8.78 12 2.5Z"
                   />
                 </svg>
               </button>
-              <button class="rating-star" type="button" data-value="4" aria-label="4 звезды">
-                <svg viewBox="0 0 24 24" aria-hidden="true">
+              <button class="rating-star" type="button" data-value="4" aria-label="4 звезды" role="radio" aria-checked="false">
+                <svg viewBox="0 0 24 24" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
                   <path
-                    d="M12 2.5l2.89 6.28 6.9.57-5.22 4.53 1.59 6.72L12 16.7l-6.16 3.9 1.59-6.72L2.2 9.35l6.9-.57z"
+                    d="M12 2.5L14.89 8.78 21.79 9.35 16.57 13.88 18.16 20.6 12 16.7 5.84 20.6 7.43 13.88 2.21 9.35 9.11 8.78 12 2.5Z"
                   />
                 </svg>
               </button>
-              <button class="rating-star" type="button" data-value="5" aria-label="5 звезд">
-                <svg viewBox="0 0 24 24" aria-hidden="true">
+              <button class="rating-star" type="button" data-value="5" aria-label="5 звезд" role="radio" aria-checked="false">
+                <svg viewBox="0 0 24 24" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
                   <path
-                    d="M12 2.5l2.89 6.28 6.9.57-5.22 4.53 1.59 6.72L12 16.7l-6.16 3.9 1.59-6.72L2.2 9.35l6.9-.57z"
+                    d="M12 2.5L14.89 8.78 21.79 9.35 16.57 13.88 18.16 20.6 12 16.7 5.84 20.6 7.43 13.88 2.21 9.35 9.11 8.78 12 2.5Z"
                   />
                 </svg>
               </button>

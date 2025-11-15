@@ -92,7 +92,9 @@ function showRatingPanel() {
 function updateRatingStars(value) {
   ratingStars.forEach((star) => {
     const starValue = Number(star.dataset.value);
-    star.classList.toggle('active', starValue <= value);
+    const isActive = starValue <= value;
+    star.classList.toggle('active', isActive);
+    star.setAttribute('aria-checked', String(isActive));
   });
 }
 
