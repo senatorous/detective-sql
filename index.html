@@ -255,7 +255,7 @@
       }
       .chat .outgoing button:disabled { background: #9dc9f0; cursor: default; }
 
-      .start-screen {
+      .start-screen { 
         /* раньше было fixed — из-за рамки делаем его локальным к экрану */
         position: absolute;
         inset: 0;
@@ -266,6 +266,10 @@
       .start-screen.hidden { display: none; }
       .start-screen button {
         background: #333; color: #fff; border: none; border-radius: 8px; padding: 20px 40px; font-size: 24px; cursor: pointer;
+      }
+
+      .is-hidden {
+        display: none !important;
       }
 
       .start-intro {
@@ -365,6 +369,7 @@
         z-index: 30;
         background: rgba(0, 0, 0, 0.9);
         gap: 16px;
+        text-align: center;
       }
 
       .game-over-screen p {
@@ -373,6 +378,153 @@
         font-weight: 700;
         letter-spacing: 0.15em;
         text-transform: uppercase;
+      }
+
+      .rate-button,
+      .rating-submit {
+        background: #333;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        padding: 14px 28px;
+        font-size: calc(var(--start-screen-font-size) * 0.9);
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .rate-button:hover,
+      .rating-submit:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+      }
+
+      .rate-button:focus-visible,
+      .rating-submit:focus-visible {
+        outline: 2px solid rgba(255, 255, 255, 0.6);
+        outline-offset: 3px;
+      }
+
+      .rating-panel {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        width: min(460px, 90%);
+      }
+
+      .rating-panel .rating-stars {
+        display: flex;
+        gap: 14px;
+        opacity: 0;
+      }
+
+      .rating-star {
+        width: 48px;
+        height: 48px;
+        padding: 0;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      .rating-star svg {
+        width: 36px;
+        height: 36px;
+      }
+
+      .rating-star path {
+        fill: #f7f7f7;
+        stroke: #b1b1b1;
+        stroke-width: 1.5;
+      }
+
+      .rating-star.active path {
+        fill: #f8cf40;
+        stroke: #c7961a;
+      }
+
+      .rating-star:focus-visible {
+        outline: 2px solid rgba(255, 255, 255, 0.65);
+        border-radius: 999px;
+      }
+
+      @keyframes ratingStarFadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .rating-panel.rating-panel--active .rating-stars {
+        opacity: 1;
+      }
+
+      .rating-panel.rating-panel--active .rating-star {
+        animation: ratingStarFadeUp 0.4s ease forwards;
+      }
+
+      .rating-panel.rating-panel--active .rating-star:nth-child(2) { animation-delay: 0.05s; }
+      .rating-panel.rating-panel--active .rating-star:nth-child(3) { animation-delay: 0.1s; }
+      .rating-panel.rating-panel--active .rating-star:nth-child(4) { animation-delay: 0.15s; }
+      .rating-panel.rating-panel--active .rating-star:nth-child(5) { animation-delay: 0.2s; }
+
+      .rating-feedback {
+        width: 100%;
+        max-width: 420px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        opacity: 0;
+      }
+
+      .rating-feedback textarea {
+        width: 100%;
+        min-height: 130px;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        background: rgba(0, 0, 0, 0.35);
+        color: #fff;
+        padding: 16px;
+        font-size: 16px;
+        resize: vertical;
+      }
+
+      .rating-feedback textarea::placeholder {
+        color: rgba(255, 255, 255, 0.55);
+      }
+
+      .rating-feedback textarea:focus-visible {
+        outline: 2px solid rgba(255, 255, 255, 0.5);
+        border-color: rgba(255, 255, 255, 0.5);
+      }
+
+      .rating-feedback.has-error textarea {
+        border-color: #f87171;
+        box-shadow: 0 0 0 1px rgba(248, 113, 113, 0.45);
+      }
+
+      @keyframes feedbackFadeDown {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .rating-feedback.rating-feedback--visible {
+        animation: feedbackFadeDown 0.4s ease forwards;
       }
 
       /* ====== MONITOR FRAME ====== */
@@ -536,6 +688,57 @@
         <div id="siren-overlay" class="siren-overlay"></div>
         <div id="end-screen" class="start-screen hidden game-over-screen">
           <p>Игра закончена</p>
+          <button id="rate-button" class="rate-button" type="button">Оцените игру</button>
+          <div
+            id="rating-panel"
+            class="rating-panel is-hidden"
+            aria-hidden="true"
+          >
+            <div class="rating-stars" role="radiogroup" aria-label="Оцените игру">
+              <button class="rating-star" type="button" data-value="1" aria-label="1 звезда">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path
+                    d="M12 2.5l2.89 6.28 6.9.57-5.22 4.53 1.59 6.72L12 16.7l-6.16 3.9 1.59-6.72L2.2 9.35l6.9-.57z"
+                  />
+                </svg>
+              </button>
+              <button class="rating-star" type="button" data-value="2" aria-label="2 звезды">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path
+                    d="M12 2.5l2.89 6.28 6.9.57-5.22 4.53 1.59 6.72L12 16.7l-6.16 3.9 1.59-6.72L2.2 9.35l6.9-.57z"
+                  />
+                </svg>
+              </button>
+              <button class="rating-star" type="button" data-value="3" aria-label="3 звезды">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path
+                    d="M12 2.5l2.89 6.28 6.9.57-5.22 4.53 1.59 6.72L12 16.7l-6.16 3.9 1.59-6.72L2.2 9.35l6.9-.57z"
+                  />
+                </svg>
+              </button>
+              <button class="rating-star" type="button" data-value="4" aria-label="4 звезды">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path
+                    d="M12 2.5l2.89 6.28 6.9.57-5.22 4.53 1.59 6.72L12 16.7l-6.16 3.9 1.59-6.72L2.2 9.35l6.9-.57z"
+                  />
+                </svg>
+              </button>
+              <button class="rating-star" type="button" data-value="5" aria-label="5 звезд">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path
+                    d="M12 2.5l2.89 6.28 6.9.57-5.22 4.53 1.59 6.72L12 16.7l-6.16 3.9 1.59-6.72L2.2 9.35l6.9-.57z"
+                  />
+                </svg>
+              </button>
+            </div>
+            <div id="feedback-container" class="rating-feedback is-hidden">
+              <textarea
+                id="feedback-input"
+                placeholder="Можете оставить обратную связь (до 500 символов)"
+              ></textarea>
+              <button type="button" class="rating-submit">Отправить</button>
+            </div>
+          </div>
         </div>
       </div>
 
