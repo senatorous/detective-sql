@@ -33,6 +33,8 @@ const endScreen = document.getElementById('end-screen');
 const rateButton = document.getElementById('rate-button');
 const ratingPanel = document.getElementById('rating-panel');
 const ratingStars = Array.from(document.querySelectorAll('.rating-star'));
+const yellowStarSrc = `${import.meta.env.BASE_URL}uploads/yellow_star.png`;
+const greyStarSrc = `${import.meta.env.BASE_URL}uploads/grey_star.png`;
 const feedbackContainer = document.getElementById('feedback-container');
 const feedbackInput = document.getElementById('feedback-input');
 const policeSirenAudio =
@@ -89,12 +91,21 @@ function showRatingPanel() {
   });
 }
 
+function setStarVisual(star, isActive) {
+  const img = star.querySelector('img');
+  if (!img) return;
+  img.src = isActive ? yellowStarSrc : greyStarSrc;
+  img.setAttribute('aria-hidden', 'true');
+  img.alt = '';
+}
+
 function updateRatingStars(value) {
   ratingStars.forEach((star) => {
     const starValue = Number(star.dataset.value);
     const isActive = starValue <= value;
     star.classList.toggle('active', isActive);
     star.setAttribute('aria-checked', String(isActive));
+    setStarVisual(star, isActive);
   });
 }
 
@@ -122,6 +133,8 @@ ratingStars.forEach((star) => {
     showFeedbackArea();
   });
 });
+
+updateRatingStars(currentRating);
 
 if (feedbackInput) {
   feedbackInput.addEventListener('input', () => {

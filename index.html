@@ -432,22 +432,11 @@
         transform: translateY(10px);
       }
 
-      .rating-star svg {
-        width: 36px;
-        height: 36px;
+      .rating-star img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
         display: block;
-      }
-
-      .rating-star path {
-        fill: #d6d6d6;
-        stroke: #a0a0a0;
-        stroke-width: 1.2;
-        transition: fill 0.2s ease, stroke 0.2s ease;
-      }
-
-      .rating-star.active path {
-        fill: #f8cf40;
-        stroke: #c7961a;
       }
 
       .rating-star:focus-visible {
@@ -698,39 +687,19 @@
           >
             <div class="rating-stars" role="radiogroup" aria-label="Оцените игру">
               <button class="rating-star" type="button" data-value="1" aria-label="1 звезда" role="radio" aria-checked="false">
-                <svg viewBox="0 0 24 24" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M12 2.5L14.89 8.78 21.79 9.35 16.57 13.88 18.16 20.6 12 16.7 5.84 20.6 7.43 13.88 2.21 9.35 9.11 8.78 12 2.5Z"
-                  />
-                </svg>
+                <img src="uploads/grey_star.png" alt="" aria-hidden="true" loading="lazy" />
               </button>
               <button class="rating-star" type="button" data-value="2" aria-label="2 звезды" role="radio" aria-checked="false">
-                <svg viewBox="0 0 24 24" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M12 2.5L14.89 8.78 21.79 9.35 16.57 13.88 18.16 20.6 12 16.7 5.84 20.6 7.43 13.88 2.21 9.35 9.11 8.78 12 2.5Z"
-                  />
-                </svg>
+                <img src="uploads/grey_star.png" alt="" aria-hidden="true" loading="lazy" />
               </button>
               <button class="rating-star" type="button" data-value="3" aria-label="3 звезды" role="radio" aria-checked="false">
-                <svg viewBox="0 0 24 24" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M12 2.5L14.89 8.78 21.79 9.35 16.57 13.88 18.16 20.6 12 16.7 5.84 20.6 7.43 13.88 2.21 9.35 9.11 8.78 12 2.5Z"
-                  />
-                </svg>
+                <img src="uploads/grey_star.png" alt="" aria-hidden="true" loading="lazy" />
               </button>
               <button class="rating-star" type="button" data-value="4" aria-label="4 звезды" role="radio" aria-checked="false">
-                <svg viewBox="0 0 24 24" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M12 2.5L14.89 8.78 21.79 9.35 16.57 13.88 18.16 20.6 12 16.7 5.84 20.6 7.43 13.88 2.21 9.35 9.11 8.78 12 2.5Z"
-                  />
-                </svg>
+                <img src="uploads/grey_star.png" alt="" aria-hidden="true" loading="lazy" />
               </button>
               <button class="rating-star" type="button" data-value="5" aria-label="5 звезд" role="radio" aria-checked="false">
-                <svg viewBox="0 0 24 24" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M12 2.5L14.89 8.78 21.79 9.35 16.57 13.88 18.16 20.6 12 16.7 5.84 20.6 7.43 13.88 2.21 9.35 9.11 8.78 12 2.5Z"
-                  />
-                </svg>
+                <img src="uploads/grey_star.png" alt="" aria-hidden="true" loading="lazy" />
               </button>
             </div>
             <div id="feedback-container" class="rating-feedback is-hidden">
