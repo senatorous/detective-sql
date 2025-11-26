@@ -33,8 +33,6 @@ const endScreen = document.getElementById('end-screen');
 const rateButton = document.getElementById('rate-button');
 const ratingPanel = document.getElementById('rating-panel');
 const ratingStars = Array.from(document.querySelectorAll('.rating-star'));
-const yellowStarSrc = `${import.meta.env.BASE_URL}uploads/yellow_star.png`;
-const greyStarSrc = `${import.meta.env.BASE_URL}uploads/grey_star.png`;
 const feedbackContainer = document.getElementById('feedback-container');
 const feedbackInput = document.getElementById('feedback-input');
 const policeSirenAudio =
@@ -92,11 +90,7 @@ function showRatingPanel() {
 }
 
 function setStarVisual(star, isActive) {
-  const img = star.querySelector('img');
-  if (!img) return;
-  img.src = isActive ? yellowStarSrc : greyStarSrc;
-  img.setAttribute('aria-hidden', 'true');
-  img.alt = '';
+  star.style.color = isActive ? '#ffd54f' : '#a6a6a6';
 }
 
 function updateRatingStars(value) {
