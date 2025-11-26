@@ -430,13 +430,14 @@
         justify-content: center;
         opacity: 0;
         transform: translateY(10px);
+        font-size: 46px;
+        line-height: 1;
+        color: #a6a6a6;
       }
 
-      .rating-star img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
+      .rating-star-icon {
         display: block;
+        pointer-events: none;
       }
 
       .rating-star:focus-visible {
@@ -461,6 +462,10 @@
 
       .rating-panel.rating-panel--active .rating-star {
         animation: ratingStarFadeUp 0.4s ease forwards;
+      }
+
+      .rating-star.active {
+        color: #ffd54f;
       }
 
       .rating-panel.rating-panel--active .rating-star:nth-child(2) { animation-delay: 0.05s; }
@@ -687,19 +692,19 @@
           >
             <div class="rating-stars" role="radiogroup" aria-label="Оцените игру">
               <button class="rating-star" type="button" data-value="1" aria-label="1 звезда" role="radio" aria-checked="false">
-                <img src="uploads/grey_star.png" alt="" aria-hidden="true" loading="lazy" />
+                <span class="rating-star-icon" aria-hidden="true">★</span>
               </button>
               <button class="rating-star" type="button" data-value="2" aria-label="2 звезды" role="radio" aria-checked="false">
-                <img src="uploads/grey_star.png" alt="" aria-hidden="true" loading="lazy" />
+                <span class="rating-star-icon" aria-hidden="true">★</span>
               </button>
               <button class="rating-star" type="button" data-value="3" aria-label="3 звезды" role="radio" aria-checked="false">
-                <img src="uploads/grey_star.png" alt="" aria-hidden="true" loading="lazy" />
+                <span class="rating-star-icon" aria-hidden="true">★</span>
               </button>
               <button class="rating-star" type="button" data-value="4" aria-label="4 звезды" role="radio" aria-checked="false">
-                <img src="uploads/grey_star.png" alt="" aria-hidden="true" loading="lazy" />
+                <span class="rating-star-icon" aria-hidden="true">★</span>
               </button>
               <button class="rating-star" type="button" data-value="5" aria-label="5 звезд" role="radio" aria-checked="false">
-                <img src="uploads/grey_star.png" alt="" aria-hidden="true" loading="lazy" />
+                <span class="rating-star-icon" aria-hidden="true">★</span>
               </button>
             </div>
             <div id="feedback-container" class="rating-feedback is-hidden">
