@@ -164,9 +164,10 @@ async function handleRatingSubmit() {
     return;
   }
 
-  setFeedbackStatus('Отправляем отзыв...', 'info');
+  setFeedbackStatus('', 'info');
   ratingSubmitButton.disabled = true;
   ratingSubmitButton.textContent = 'Отправляем...';
+  ratingSubmitButton.classList.remove('rating-submit--success');
 
   const { error } = await submitFeedback(currentRating, comment);
 
@@ -177,8 +178,8 @@ async function handleRatingSubmit() {
     return;
   }
 
-  setFeedbackStatus('Спасибо! Отзыв отправлен.', 'success');
   ratingSubmitButton.textContent = 'Отправлено';
+  ratingSubmitButton.classList.add('rating-submit--success');
 }
 
 if (ratingSubmitButton) {
