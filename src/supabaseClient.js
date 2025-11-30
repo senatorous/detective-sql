@@ -21,7 +21,7 @@ export async function submitFeedback(rating, comment) {
         Authorization: `Bearer ${supabaseAnonKey}`,
         Prefer: 'return=minimal',
       },
-      body: JSON.stringify({ start: rating, comment }),
+      body: JSON.stringify({ stars: rating, comment }),
     });
 
     if (!response.ok) {
