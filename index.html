@@ -523,6 +523,22 @@
         animation: feedbackFadeDown 0.4s ease forwards;
       }
 
+      .rating-status {
+        margin: 0;
+        font-size: 14px;
+        line-height: 1.4;
+        color: rgba(255, 255, 255, 0.85);
+        min-height: 20px;
+      }
+
+      .rating-status--error {
+        color: #fca5a5;
+      }
+
+      .rating-status--success {
+        color: #a7f3d0;
+      }
+
       /* ====== MONITOR FRAME ====== */
       .monitor-bezel {
         max-width: 1280px;
@@ -712,6 +728,7 @@
                 id="feedback-input"
                 placeholder="Можете оставить обратную связь (до 500 символов)"
               ></textarea>
+              <p id="feedback-status" class="rating-status" role="status" aria-live="polite"></p>
               <button type="button" class="rating-submit">Отправить</button>
             </div>
           </div>
