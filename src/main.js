@@ -6,6 +6,7 @@ import { renderResult } from './ui/result.js';
 import { renderSchema } from './ui/schema.js';
 import { validate, steps } from './engine/validator.js';
 import setupSQL from './setup.sql?raw';
+import { submitFeedback } from './supabaseClient.js';
 
 if (import.meta.env.PROD) {
   const analyticsModule = '@vercel/analytics';
@@ -35,6 +36,8 @@ const ratingPanel = document.getElementById('rating-panel');
 const ratingStars = Array.from(document.querySelectorAll('.rating-star'));
 const feedbackContainer = document.getElementById('feedback-container');
 const feedbackInput = document.getElementById('feedback-input');
+const ratingSubmitButton = document.querySelector('.rating-submit');
+const feedbackStatus = document.getElementById('feedback-status');
 const policeSirenAudio =
   typeof Audio !== 'undefined'
     ? new Audio(`${import.meta.env.BASE_URL}audio/police_sirene_10_sec.mp3`)
@@ -138,6 +141,49 @@ if (feedbackInput) {
     } else {
       feedbackContainer.classList.remove('has-error');
     }
+  });
+}
+
+function setFeedbackStatus(message, type = 'info') {
+  if (!feedbackStatus) return;
+  feedbackStatus.textContent = message;
+  feedbackStatus.className = `rating-status rating-status--${type}`;
+}
+
+async function handleRatingSubmit() {
+  if (!ratingSubmitButton) return;
+  const comment = (feedbackInput?.value ?? '').trim();
+
+  if (!currentRating) {
+    setFeedbackStatus('Поставьте оценку, выбрав от 1 до 5 звезд.', 'error');
+    return;
+  }
+
+  if (comment.length > 500) {
+    setFeedbackStatus('Сократите обратную связь до 500 символов.', 'error');
+    return;
+  }
+
+  setFeedbackStatus('Отправляем отзыв...', 'info');
+  ratingSubmitButton.disabled = true;
+  ratingSubmitButton.textContent = 'Отправляем...';
+
+  const { error } = await submitFeedback(currentRating, comment);
+
+  if (error) {
+    setFeedbackStatus(error.message || 'Не удалось отправить отзыв.', 'error');
+    ratingSubmitButton.disabled = false;
+    ratingSubmitButton.textContent = 'Отправить';
+    return;
+  }
+
+  setFeedbackStatus('Спасибо! Отзыв отправлен.', 'success');
+  ratingSubmitButton.textContent = 'Отправлено';
+}
+
+if (ratingSubmitButton) {
+  ratingSubmitButton.addEventListener('click', () => {
+    handleRatingSubmit();
   });
 }
 
